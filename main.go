@@ -33,7 +33,13 @@ func main() {
 		}
 		log.Print("The router has been deployed successfully.")
 	}() // 标注1
-	//time.Sleep(time.Second * 5)
+	// 让main goroutine 暂停运行500ms
+	// 这时，标注2和3不会执行，但是 go gunc 会并发继续执行，因为WEB服务还未启动，提示 Waiting for the router, retry in 1 second.
+	// main goroutine 暂停运行时间一过，标注2、3继续执行
+	// 标注2 执行后，提示：Start to listening the incoming requests on http address: :8080
+	// 标注3，成功启动WEB服务
+	// 并发 go gunc 在WEB服务启动并没有Error的情况下，提示： The router has been deployed successfully.
+	time.Sleep(time.Millisecond * 500)
 	log.Printf("Start to listening the incoming requests on http address: %s", ":8080") // 标注2
 	log.Printf(http.ListenAndServe(":8080", g).Error())  // 标注3
 }
