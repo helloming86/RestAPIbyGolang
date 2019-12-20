@@ -29,7 +29,7 @@ const (
 // HealthCheck shows `OK` as the ping-pong result
 func HealthCheck(c *gin.Context)  {
 	message := "OK"
-	c.String(http.StatusOK, "\n"+message)
+	c.String(http.StatusOK, "\n" + message)
 }
 
 // DiskCheck checks the disk usage.
