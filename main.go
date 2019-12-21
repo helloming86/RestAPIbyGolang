@@ -3,13 +3,31 @@ package main
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/pflag"
+	"github.com/spf13/viper"
 	"log"
+	"miMallDemo/config"
 	"miMallDemo/router"
 	"net/http"
 	"time"
 )
 
+var (
+	cfg = pflag.StringP("config","c","","APIServer config file path") // cfg 是一个 *string 指针变量
+)
+
 func main() {
+	// 使用pflag 进行 flag 绑定（也可以使用官方标准库的flag）
+	pflag.Parse()
+
+	// init config
+	if err := config.Init(*cfg); err != nil {
+		panic(err)
+	}
+
+	// Set gin mode.
+	gin.SetMode(viper.GetString("runmode"))
+
 	// create the gin engine
 	g := gin.New()
 
@@ -40,15 +58,15 @@ func main() {
 	// 标注3，成功启动WEB服务
 	// 并发 go gunc 在WEB服务启动并没有Error的情况下，提示： The router has been deployed successfully.
 	time.Sleep(time.Millisecond * 500)
-	log.Printf("Start to listening the incoming requests on http address: %s", ":8080") // 标注2
-	log.Printf(http.ListenAndServe(":8080", g).Error())  // 标注3
+	log.Printf("Start to listening the incoming requests on http address: %s", viper.GetString("addr")) // 标注2
+	log.Printf(http.ListenAndServe(viper.GetString("addr"), g).Error())  // 标注3
 }
 
 // pingServer pings the http server to make sure the router is working.
 func pingServer() error {
 	// Ping the server by sending a GET request to `/health`.
-	for i := 0; i < 2; i++ {
-		resp, err := http.Get("http://127.0.0.1:8080" + "/sd/health")
+	for i := 0; i < viper.GetInt("max_ping_count"); i++ {
+		resp, err := http.Get(viper.GetString("url") + "/sd/health")
 		if err == nil && resp.StatusCode == 200 {
 			return nil
 		}
