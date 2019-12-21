@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -34,7 +35,7 @@ func getLoggerLevel(lvl string) zapcore.Level  {
 //  * MaxAges：保留旧文件的最大天数
 //  * Compress：是否压缩/归档旧文件
 func setSyncWriter() zapcore.WriteSyncer {
-	fileName := "zap.log" // 日志文件
+	fileName := viper.GetString("log.log_file") // 日志文件
 	// syncWriter : WriteSyncer 指定日志输出信息 包括文件目录等
 	// zapcore.AddSync() 日志写入文件的
 	return zapcore.AddSync(&lumberjack.Logger{
@@ -64,7 +65,7 @@ func InitLogger()  {
 	// 设置日志文件
 	syncWriter := setSyncWriter()
 	// 设置日志等级
-	level := getLoggerLevel("debug")
+	level := getLoggerLevel(viper.GetString("log.logger_lever"))
 	atomLevel := zap.NewAtomicLevelAt(level)
 	// 创建日志核心  zapcore.Core需要三个配置：Encoder，WriteSyncer，LogLevel
 	core := zapcore.NewCore(zapcore.NewJSONEncoder(encoder), syncWriter, atomLevel)
