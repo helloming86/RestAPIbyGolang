@@ -2,14 +2,17 @@ package main
 
 import (
 	"errors"
+	"log"
+	"miMallDemo/logger"
+	"net/http"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-	"log"
+
 	"miMallDemo/config"
 	"miMallDemo/router"
-	"net/http"
-	"time"
 )
 
 var (
@@ -25,6 +28,9 @@ func main() {
 		panic(err)
 	}
 
+	// init Logger
+	logger.InitLogger()
+
 	// Set gin mode.
 	gin.SetMode(viper.GetString("runmode"))
 
@@ -33,7 +39,7 @@ func main() {
 
 	// gin middlewares
 	//var middlewares []gin.HandlerFunc
-	middlewares := []gin.HandlerFunc{}
+	var middlewares []gin.HandlerFunc
 
 	// routers
 	router.Load(

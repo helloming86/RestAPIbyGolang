@@ -5,9 +5,10 @@ package middleware
 // 已封装，初阶，可以直接使用
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 // NoCache is a middleware function that appends headers
