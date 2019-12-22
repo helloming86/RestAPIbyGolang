@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"miMallDemo/handler/sd"
+	"miMallDemo/handler/user"
 	"miMallDemo/router/middleware"
 	"net/http"
 )
@@ -33,6 +34,12 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.NoRoute(func(c *gin.Context) {
 		c.String(http.StatusNotFound, "The incorrect api router")
 	})
+
+	// test errno
+	u := g.Group("/v1/user")
+	{
+		u.POST("", user.Create)
+	}
 
 	// the health check handler
 	svcd := g.Group("/sd")
