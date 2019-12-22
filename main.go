@@ -3,16 +3,17 @@ package main
 import (
 	"errors"
 	"log"
-	"miMallDemo/logger"
 	"net/http"
 	"time"
+
+	"miMallDemo/config"
+	"miMallDemo/logger"
+	"miMallDemo/model"
+	"miMallDemo/router"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-
-	"miMallDemo/config"
-	"miMallDemo/router"
 )
 
 var (
@@ -30,6 +31,22 @@ func main() {
 
 	// init Logger
 	logger.InitLogger()
+
+	// init DB
+	model.InitDB()
+	defer model.DB.Close()
+
+	if model.DB.HasTable(&model.User{}) {
+		model.DB.AutoMigrate(&model.User{})
+	} else {
+		model.DB.CreateTable(&model.User{})
+	}
+
+	if model.DB.HasTable(&model.UserAuth{}) {
+		model.DB.AutoMigrate(&model.UserAuth{})
+	} else {
+		model.DB.CreateTable(&model.UserAuth{})
+	}
 
 	// Set gin mode.
 	gin.SetMode(viper.GetString("runmode"))
