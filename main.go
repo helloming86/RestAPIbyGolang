@@ -42,12 +42,6 @@ func main() {
 		model.DB.CreateTable(&model.User{})
 	}
 
-	if model.DB.HasTable(&model.UserAuth{}) {
-		model.DB.AutoMigrate(&model.UserAuth{})
-	} else {
-		model.DB.CreateTable(&model.UserAuth{})
-	}
-
 	// Set gin mode.
 	gin.SetMode(viper.GetString("runmode"))
 

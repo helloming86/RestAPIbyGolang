@@ -1,11 +1,15 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
+
+	"net/http"
+
 	"miMallDemo/handler/sd"
 	"miMallDemo/handler/user"
 	"miMallDemo/router/middleware"
-	"net/http"
+
+	"github.com/gin-gonic/gin"
+
 )
 
 
@@ -35,10 +39,35 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		c.String(http.StatusNotFound, "The incorrect api router")
 	})
 
+	// http req and res demo
+	//g.GET("/user/:id", func(c *gin.Context) {
+	//	// Param()：返回URL的参数值
+	//	c.Param("id") // id == "nicky"
+	//
+	//	// GET /path?id=1234&name=Manu&value=
+	//	// Query()：查询请求URL后面的参数
+	//	c.Query("id") == "1234"
+	//	c.Query("name") == "Manu"
+	//	c.Query("value") == ""
+	//	c.Query("wtf") == ""
+	//
+	//	// DefaultQuery()：类似 Query()，但是如果 key 不存在，会返回默认值 查询请求URL后面的参数，如果没有填写默认值
+	//	// GET /?name=Manu&lastname=
+	//	c.DefaultQuery("name", "unknown") == "Manu"
+	//	c.DefaultQuery("id", "none") == "none"
+	//	c.DefaultQuery("lastname", "none") == ""
+	//  c.PostForm("name") //从表单中查询参数
+	//
+	//	// Bind()：检查 Content-Type 类型，将消息体作为指定的格式解析到 Go struct 变量中。
+	//	// GetHeader()：获取 HTTP 头
+	//})
+
+
+
 	// test errno
 	u := g.Group("/v1/user")
 	{
-		u.POST("", user.Create)
+		u.POST("/:username", user.Create)
 	}
 
 	// the health check handler
