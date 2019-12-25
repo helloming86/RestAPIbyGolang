@@ -17,13 +17,13 @@ import (
 
 func ListUser(username string, offset, limit int) ([]*model.UserInfo, uint, error) {
 
-	infos := make([]*model.UserInfo, 0)
-	users, count, err := model.ListUser(username, offset, limit)
+	infos := make([]*model.UserInfo, 0)	// json用户信息格式的数组
+	users, count, err := model.ListUser(username, offset, limit) // 数据库中获取用户信息；按照 username 查询
 	if err != nil {
 		return nil, count, err
 	}
 
-	ids := []uint{}
+	var ids []uint	// 用户ID数组
 	for _, user := range users {
 		ids = append(ids, user.ID)
 	}
@@ -32,10 +32,10 @@ func ListUser(username string, offset, limit int) ([]*model.UserInfo, uint, erro
 	userList := model.UserList{
 		Lock: new(sync.Mutex),
 		IdMap: make(map[uint]*model.UserInfo, len(users)),
-	}
+	} // 带锁的用户列表
 
-	errChan := make(chan error, 1)
-	finished := make(chan bool, 1)
+	errChan := make(chan error, 1) // 通道，传递错误信息，零值是nil
+	finished := make(chan bool, 1) // 通道，传递是否结束，零值是false
 
 	for _, u := range users {
 		wg.Add(1)
@@ -47,8 +47,8 @@ func ListUser(username string, offset, limit int) ([]*model.UserInfo, uint, erro
 				errChan <- err
 			}
 
-			userList.Lock.Lock()
-			defer userList.Lock.Unlock()
+			userList.Lock.Lock()	// 加锁
+			defer userList.Lock.Unlock()	// 解锁
 			userList.IdMap[u.ID] = &model.UserInfo{
 				ID:			u.ID,
 				Username:	u.Username,
