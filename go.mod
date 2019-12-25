@@ -8,6 +8,7 @@ require (
 	github.com/gin-gonic/gin v1.5.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/jinzhu/gorm v1.9.11
+	github.com/satori/go.uuid v1.2.0
 	github.com/shirou/gopsutil v2.19.11+incompatible
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.6.1
@@ -15,5 +16,6 @@ require (
 	github.com/teris-io/shortid v0.0.0-20171029131806-771a37caa5cf
 	go.uber.org/zap v1.10.0
 	golang.org/x/crypto v0.0.0-20190325154230-a5d413f7728c
+	gopkg.in/go-playground/validator.v9 v9.29.1
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 )
