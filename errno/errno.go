@@ -5,7 +5,7 @@ import (
 )
 
 type Errno struct {
-	Code int
+	Code    int
 	Message string
 }
 
@@ -15,12 +15,12 @@ func (err Errno) Error() string {
 
 // Err represents an error
 type Err struct {
-	Code int
+	Code    int
 	Message string
-	Err error
+	Err     error
 }
 
-func (err *Err) Error() string  {
+func (err *Err) Error() string {
 	// 返回字符串
 	// 包含 自定义的 返回码code、自定义的返回信息message、系统的错误类型error
 	return fmt.Sprintf("Err - code: %d, message: %s, error: %s",
@@ -28,13 +28,13 @@ func (err *Err) Error() string  {
 }
 
 // 对外展示更多的信息可以调用此函数
-func (err *Err) Add(message string) error  {
+func (err *Err) Add(message string) error {
 	err.Message += " " + message
 	return err
 }
 
 // 对外展示更多的信息可以调用此函数
-func (err *Err) Addf(format string, args ...interface{}) error  {
+func (err *Err) Addf(format string, args ...interface{}) error {
 	// fmt.Sprintf() 返回为 格式化后的字符串
 	err.Message += " " + fmt.Sprintf(format, args...)
 	return err
@@ -42,7 +42,7 @@ func (err *Err) Addf(format string, args ...interface{}) error  {
 
 // 新建定制的错误
 // 为系统error定制对应的自定义返回码code和返回信息message
-func New(errno *Errno, err error) *Err  {
+func New(errno *Errno, err error) *Err {
 	return &Err{Code: errno.Code, Message: errno.Message, Err: err}
 }
 
@@ -69,9 +69,3 @@ func IsErrUserNotFound(err error) bool {
 	code, _ := DecodeErr(err)
 	return code == ErrUserNotFound.Code
 }
-
-
-
-
-
-

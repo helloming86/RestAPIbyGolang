@@ -12,7 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Update(c *gin.Context)  {
+func Update(c *gin.Context) {
 
 	logger.Infof("User Create function called. X-Request-Id is %d", utils.GenReqId(c))
 

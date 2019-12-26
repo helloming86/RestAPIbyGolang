@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	cfg = pflag.StringP("config","c","","APIServer config file path") // cfg 是一个 *string 指针变量
+	cfg = pflag.StringP("config", "c", "", "APIServer config file path") // cfg 是一个 *string 指针变量
 )
 
 func main() {
@@ -58,7 +58,7 @@ func main() {
 		g,
 		// middlewares
 		middlewares...,
-		)
+	)
 
 	// Ping the server to make sure the router is working.
 	go func() {
@@ -98,4 +98,3 @@ func pingServer() error {
 	}
 	return errors.New("Cannot connect to the router.")
 }
-

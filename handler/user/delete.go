@@ -1,8 +1,6 @@
 package user
 
-
 import (
-
 	"strconv"
 
 	"miMallDemo/errno"
@@ -10,10 +8,9 @@ import (
 	"miMallDemo/model"
 
 	"github.com/gin-gonic/gin"
-
 )
 
-func Delete(c *gin.Context)  {
+func Delete(c *gin.Context) {
 	userId, _ := strconv.Atoi(c.Param("id"))
 	if err := model.DeleteUser(uint(userId)); err != nil {
 		SendResponse(c, errno.ErrDatabase, nil)

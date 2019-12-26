@@ -8,7 +8,6 @@ package sd
 // 有时候 API 进程起来不代表 API 服务器正常，可能：API 进程存在，但是服务器却不能对外提供服务。
 // 因此在启动 API 服务器时，如果能够最后做一个自检会更好些。
 
-
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -20,20 +19,20 @@ import (
 )
 
 const (
-	B = 1
+	B  = 1
 	KB = 1024 * B
 	MB = 1024 * KB
 	GB = 1024 * MB
 )
 
 // HealthCheck shows `OK` as the ping-pong result
-func HealthCheck(c *gin.Context)  {
+func HealthCheck(c *gin.Context) {
 	message := "OK"
-	c.String(http.StatusOK, "\n" + message)
+	c.String(http.StatusOK, "\n"+message)
 }
 
 // DiskCheck checks the disk usage.
-func DiskCheck(c *gin.Context)  {
+func DiskCheck(c *gin.Context) {
 	u, _ := disk.Usage("/")
 
 	usedMB := int(u.Used) / MB
@@ -59,7 +58,7 @@ func DiskCheck(c *gin.Context)  {
 }
 
 // CPUCheck checks the cpu usage.
-func CPUCheck(c *gin.Context)  {
+func CPUCheck(c *gin.Context) {
 	cores, _ := cpu.Counts(false)
 	a, _ := load.Avg()
 	l1 := a.Load1
@@ -82,7 +81,7 @@ func CPUCheck(c *gin.Context)  {
 }
 
 // RAMCheck checks the disk usage
-func RAMCheck(c *gin.Context)  {
+func RAMCheck(c *gin.Context) {
 	u, _ := mem.VirtualMemory()
 
 	usedMB := int(u.Used) / MB

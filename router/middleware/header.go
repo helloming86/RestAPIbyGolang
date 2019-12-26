@@ -13,7 +13,7 @@ import (
 
 // NoCache is a middleware function that appends headers
 // to prevent the client from caching the HTTP response.µ
-func NoCache(c *gin.Context)  {
+func NoCache(c *gin.Context) {
 	c.Header("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate, value")
 	c.Header("Expires", "Thu, 01 Jan 1970 00:00:00 GMT")
 	c.Header("Last-Modified", time.Now().UTC().Format(http.TimeFormat))
@@ -22,7 +22,7 @@ func NoCache(c *gin.Context)  {
 // Options is a middleware function that appends headers
 // for options requests and aborts then exits the middleware
 // chain and ends the request.
-func Options(c *gin.Context)  {
+func Options(c *gin.Context) {
 	if c.Request.Method != "Options" {
 		c.Next()
 	} else {
@@ -37,7 +37,7 @@ func Options(c *gin.Context)  {
 
 // Secure is a middleware function that appends security
 // and resource access headers.
-func Secure(c *gin.Context)  {
+func Secure(c *gin.Context) {
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.Header("X-Frame-Options", "DENY")
 	c.Header("X-Content-Type-Options", "nosniff")

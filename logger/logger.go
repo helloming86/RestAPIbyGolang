@@ -10,17 +10,17 @@ import (
 // error Logger
 var errorLogger *zap.SugaredLogger
 
-var levelMap  = map[string]zapcore.Level{
-	"debug": zapcore.DebugLevel,
-	"info": zapcore.InfoLevel,
-	"warn": zapcore.WarnLevel,
-	"error": zapcore.ErrorLevel,
+var levelMap = map[string]zapcore.Level{
+	"debug":  zapcore.DebugLevel,
+	"info":   zapcore.InfoLevel,
+	"warn":   zapcore.WarnLevel,
+	"error":  zapcore.ErrorLevel,
 	"dpanic": zapcore.DPanicLevel,
-	"panic": zapcore.PanicLevel,
-	"fatal": zapcore.FatalLevel,
+	"panic":  zapcore.PanicLevel,
+	"fatal":  zapcore.FatalLevel,
 }
 
-func getLoggerLevel(lvl string) zapcore.Level  {
+func getLoggerLevel(lvl string) zapcore.Level {
 	if level, ok := levelMap[lvl]; ok {
 		return level
 	}
@@ -39,10 +39,10 @@ func setSyncWriter() zapcore.WriteSyncer {
 	// syncWriter : WriteSyncer 指定日志输出信息 包括文件目录等
 	// zapcore.AddSync() 日志写入文件的
 	return zapcore.AddSync(&lumberjack.Logger{
-		Filename: fileName,
-		MaxSize: 1 << 30,
+		Filename:  fileName,
+		MaxSize:   1 << 30,
 		LocalTime: true,
-		Compress: true,
+		Compress:  true,
 	})
 }
 
@@ -57,8 +57,7 @@ func setEncoder() zapcore.EncoderConfig {
 	return encoder
 }
 
-
-func InitLogger()  {
+func InitLogger() {
 
 	// 设置编码器
 	encoder := setEncoder()
@@ -80,7 +79,6 @@ func InitLogger()  {
 	Infof("simple zap logger example")
 }
 
-
 func Debug(args ...interface{}) {
 	errorLogger.Debug(args...)
 }
@@ -96,7 +94,6 @@ func Info(args ...interface{}) {
 func Infof(template string, args ...interface{}) {
 	errorLogger.Infof(template, args...)
 }
-
 
 func Warn(args ...interface{}) {
 	errorLogger.Warn(args...)
@@ -121,7 +118,6 @@ func DPanic(args ...interface{}) {
 func DPanicf(template string, args ...interface{}) {
 	errorLogger.DPanicf(template, args...)
 }
-
 
 func Panic(args ...interface{}) {
 	errorLogger.Panic(args...)

@@ -17,10 +17,10 @@ import (
 //		4. 在数据库中添加数据记录
 //		5. 返回结果（这里是用户名）
 
-func Create(c *gin.Context)  {
-	
+func Create(c *gin.Context) {
+
 	logger.Infof("User Create function called. X-Request-Id is %d", utils.GenReqId(c))
-	
+
 	var r CreateRequest
 
 	if err := c.Bind(&r); err != nil {
@@ -33,7 +33,7 @@ func Create(c *gin.Context)  {
 		Password: r.Password,
 	}
 
-	if err := u.Validate(); err != nil  {
+	if err := u.Validate(); err != nil {
 		SendResponse(c, errno.ErrValidation, nil)
 		return
 	}
@@ -48,7 +48,7 @@ func Create(c *gin.Context)  {
 		return
 	}
 
-	rsp := CreateResponse{Username:r.Username}
+	rsp := CreateResponse{Username: r.Username}
 
 	SendResponse(c, nil, rsp)
 

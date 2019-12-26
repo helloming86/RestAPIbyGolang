@@ -1,16 +1,14 @@
 package user
 
 import (
-
 	"miMallDemo/errno"
 	. "miMallDemo/handler"
 	"miMallDemo/service"
 
 	"github.com/gin-gonic/gin"
-
 )
 
-func List(c *gin.Context)  {
+func List(c *gin.Context) {
 	var r ListRequest
 
 	if err := c.Bind(&r); err != nil {

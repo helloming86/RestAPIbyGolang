@@ -6,7 +6,6 @@ import (
 
 	"miMallDemo/model"
 	"miMallDemo/utils"
-
 )
 
 // 一般在 handler 中主要做解析参数、返回数据操作，简单的逻辑也可以在 handler 中做，
@@ -17,20 +16,20 @@ import (
 
 func ListUser(username string, offset, limit int) ([]*model.UserInfo, uint, error) {
 
-	infos := make([]*model.UserInfo, 0)	// json用户信息格式的数组
+	infos := make([]*model.UserInfo, 0)                          // json用户信息格式的数组
 	users, count, err := model.ListUser(username, offset, limit) // 数据库中获取用户信息；按照 username 查询
 	if err != nil {
 		return nil, count, err
 	}
 
-	var ids []uint	// 用户ID数组
+	var ids []uint // 用户ID数组
 	for _, user := range users {
 		ids = append(ids, user.ID)
 	}
 
 	wg := sync.WaitGroup{}
 	userList := model.UserList{
-		Lock: new(sync.Mutex),
+		Lock:  new(sync.Mutex),
 		IdMap: make(map[uint]*model.UserInfo, len(users)),
 	} // 带锁的用户列表
 
@@ -47,15 +46,15 @@ func ListUser(username string, offset, limit int) ([]*model.UserInfo, uint, erro
 				errChan <- err
 			}
 
-			userList.Lock.Lock()	// 加锁
-			defer userList.Lock.Unlock()	// 解锁
+			userList.Lock.Lock()         // 加锁
+			defer userList.Lock.Unlock() // 解锁
 			userList.IdMap[u.ID] = &model.UserInfo{
-				ID:			u.ID,
-				Username:	u.Username,
-				SayHello:  	fmt.Sprintf("Hello %s", shortId),
-				Password:  	u.Password,
-				CreatedAt: 	u.CreatedAt.Format("2006-01-02 15:04:05"),
-				UpdatedAt: 	u.CreatedAt.Format("2006-01-02 15:04:05"),
+				ID:        u.ID,
+				Username:  u.Username,
+				SayHello:  fmt.Sprintf("Hello %s", shortId),
+				Password:  u.Password,
+				CreatedAt: u.CreatedAt.Format("2006-01-02 15:04:05"),
+				UpdatedAt: u.CreatedAt.Format("2006-01-02 15:04:05"),
 			}
 		}(u)
 	}

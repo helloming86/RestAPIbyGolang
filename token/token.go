@@ -33,7 +33,7 @@ func secretFunc(secret string) jwt.Keyfunc {
 			return nil, jwt.ErrSignatureInvalid
 		}
 
-		return []byte(secret), nil	// secret被转换为byte单字节数组
+		return []byte(secret), nil // secret被转换为byte单字节数组
 	}
 }
 

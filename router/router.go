@@ -1,7 +1,6 @@
 package router
 
 import (
-
 	"net/http"
 
 	"miMallDemo/handler/sd"
@@ -9,9 +8,7 @@ import (
 	"miMallDemo/router/middleware"
 
 	"github.com/gin-gonic/gin"
-
 )
-
 
 // Load: loads the middlewares, routes, handlers.
 // func test1(args ...string) 可以接受任意个string参数
@@ -24,10 +21,9 @@ import (
 // middleware.Options：浏览器跨域 OPTIONS 请求设置
 // middleware.Secure：一些安全设置
 
-
 func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// middlewares
-	g.Use(gin.Recovery())	// 全局中间件
+	g.Use(gin.Recovery()) // 全局中间件
 	g.Use(middleware.NoCache)
 	g.Use(middleware.Options)
 	g.Use(middleware.Secure)
@@ -63,21 +59,19 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	//	// GetHeader()：获取 HTTP 头
 	//})
 
-
 	// JWT Login
 	g.POST("/login", user.Login)
-
 
 	// 用户路由设置
 	u := g.Group("/v1/user")
 	// 群组中间件middleware.AuthMiddleware
 	// 通过该 middleware，所有对 /v1/user 路径的请求，都会经过 middleware.AuthMiddleware() 中间件的处理：token 校验。
-	u.Use(middleware.AuthMiddleware())	// 群组中间件
+	u.Use(middleware.AuthMiddleware()) // 群组中间件
 	{
-		u.POST("", user.Create)	// 创建用户
+		u.POST("", user.Create)       // 创建用户
 		u.DELETE("/:id", user.Delete) // 删除用户
-		u.PUT("/:id", user.Update) // 更新用户
-		u.GET("", user.List) // 用户列表
+		u.PUT("/:id", user.Update)    // 更新用户
+		u.GET("", user.List)          // 用户列表
 		u.GET("/:username", user.Get) // 获取指定用户的详细信息
 		//u.POST("/:username", user.Create)
 	}

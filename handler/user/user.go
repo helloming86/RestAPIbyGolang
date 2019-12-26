@@ -6,21 +6,21 @@ import "miMallDemo/model"
 // 比如 CreateRequest 和 CreateResponse，并将这些结构体统一放在一个 Go 文件中，以方便后期维护和修改。
 
 type CreateRequest struct {
-	Username string		`json:"username"`
-	Password string		`json:"password"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type CreateResponse struct {
-	Username string		`json:"username"`
+	Username string `json:"username"`
 }
 
 type ListRequest struct {
-	Username string 	`json:"username"`
-	Offset   int    	`json:"offset"`
-	Limit    int    	`json:"limit"`
+	Username string `json:"username"`
+	Offset   int    `json:"offset"`
+	Limit    int    `json:"limit"`
 }
 
 type ListResponse struct {
-	TotalCount uint            		`json:"totalCount"`
-	UserList   []*model.UserInfo 	`json:"userList"`
+	TotalCount uint              `json:"totalCount"`
+	UserList   []*model.UserInfo `json:"userList"`
 }
