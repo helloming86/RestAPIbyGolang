@@ -1,15 +1,19 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"miMallDemo/config"
 	"miMallDemo/logger"
 	"miMallDemo/model"
 	"miMallDemo/router"
+	v "miMallDemo/version"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/pflag"
@@ -18,11 +22,23 @@ import (
 
 var (
 	cfg = pflag.StringP("config", "c", "", "APIServer config file path") // cfg 是一个 *string 指针变量
-)
+	version = pflag.BoolP("version", "v", false, "show version info.")
+	)
 
 func main() {
 	// 使用pflag 进行 flag 绑定（也可以使用官方标准库的flag）
 	pflag.Parse()
+
+	if *version {
+		v := v.Get()
+		marshalled, err := json.MarshalIndent(&v, "", " ")
+		if err != nil {
+			fmt.Printf("%v\n", err)
+			os.Exit(1)
+		}
+		fmt.Println(string(marshalled))
+		return
+	}
 
 	// init config
 	if err := config.Init(*cfg); err != nil {
