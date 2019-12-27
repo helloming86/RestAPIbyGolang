@@ -21,9 +21,9 @@ import (
 )
 
 var (
-	cfg = pflag.StringP("config", "c", "", "APIServer config file path") // cfg 是一个 *string 指针变量
+	cfg     = pflag.StringP("config", "c", "", "APIServer config file path") // cfg 是一个 *string 指针变量
 	version = pflag.BoolP("version", "v", false, "show version info.")
-	)
+)
 
 func main() {
 	// 使用pflag 进行 flag 绑定（也可以使用官方标准库的flag）
