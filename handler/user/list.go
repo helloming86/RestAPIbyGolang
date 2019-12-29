@@ -1,8 +1,8 @@
 package user
 
 import (
-	"miMallDemo/errno"
 	. "miMallDemo/handler"
+	"miMallDemo/pkg/errno"
 	"miMallDemo/service"
 
 	"github.com/gin-gonic/gin"

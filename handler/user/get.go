@@ -1,9 +1,9 @@
 package user
 
 import (
-	"miMallDemo/errno"
 	. "miMallDemo/handler"
 	"miMallDemo/model"
+	"miMallDemo/pkg/errno"
 
 	"github.com/gin-gonic/gin"
 )

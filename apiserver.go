@@ -10,10 +10,10 @@ import (
 	"time"
 
 	"miMallDemo/config"
-	"miMallDemo/logger"
 	"miMallDemo/model"
+	"miMallDemo/pkg/logger"
+	v "miMallDemo/pkg/version"
 	"miMallDemo/router"
-	v "miMallDemo/version"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/pflag"

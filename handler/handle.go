@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"miMallDemo/errno"
+	"miMallDemo/pkg/errno"
 
 	"github.com/gin-gonic/gin"
 )

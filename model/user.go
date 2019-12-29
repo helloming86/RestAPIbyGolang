@@ -3,7 +3,7 @@ package model
 import (
 	"fmt"
 
-	"miMallDemo/auth"
+	"miMallDemo/pkg/auth"
 
 	"github.com/jinzhu/gorm"
 	validator "gopkg.in/go-playground/validator.v9"

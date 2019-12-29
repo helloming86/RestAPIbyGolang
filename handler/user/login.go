@@ -1,11 +1,11 @@
 package user
 
 import (
-	"miMallDemo/auth"
-	"miMallDemo/errno"
 	. "miMallDemo/handler"
 	"miMallDemo/model"
-	"miMallDemo/token"
+	"miMallDemo/pkg/auth"
+	"miMallDemo/pkg/errno"
+	"miMallDemo/pkg/token"
 
 	"github.com/gin-gonic/gin"
 )

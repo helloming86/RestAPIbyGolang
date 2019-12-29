@@ -2,9 +2,9 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"miMallDemo/errno"
 	"miMallDemo/handler"
-	"miMallDemo/token"
+	"miMallDemo/pkg/errno"
+	"miMallDemo/pkg/token"
 )
 
 func AuthMiddleware() gin.HandlerFunc {

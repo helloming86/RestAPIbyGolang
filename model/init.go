@@ -1,7 +1,7 @@
 package model
 
 import (
-	"miMallDemo/logger"
+	"miMallDemo/pkg/logger"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"

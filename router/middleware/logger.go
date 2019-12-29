@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"miMallDemo/logger"
+	"miMallDemo/pkg/logger"
 )
 
 // 将zap logger 作为 中间件使用

@@ -1,12 +1,12 @@
 package user
 
 import (
-	"miMallDemo/errno"
+	"miMallDemo/pkg/errno"
 	"strconv"
 
 	. "miMallDemo/handler"
-	"miMallDemo/logger"
 	"miMallDemo/model"
+	"miMallDemo/pkg/logger"
 	"miMallDemo/utils"
 
 	"github.com/gin-gonic/gin"
